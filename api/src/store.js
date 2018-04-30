@@ -1,5 +1,5 @@
 const mysql = require('mysql')
-const uuid = require('shortid').connect
+const uuid = require('shortid').generate
 
 const db = mysql.createConnection(require('../config.json')['db']) //Fetch db config from config file.
 
@@ -25,11 +25,43 @@ module.exports = {
         return new Promise((resolve, reject) => {
             const id = uuid()
             db.query("INSERT INTO quests (id, title, description) VALUES (?, ?, ?)", [id, title, description], (error, results, fields) => {
-                if(error) reject(new Error(`DB Error ${error.errno}: ${error.message}`))
+                if(error)  { reject(new Error(`DB Error ${error.errno}: ${error.message}`)); return }
                 resolve({
-                    id: id,
-                    title: title,
-                    description: description
+                    id,
+                    title,
+                    description
+                })
+            })
+        })
+    },
+
+    //Get tasks from questId (sorted) 
+    getTasks: (questId) => {
+        return new Promise((resolve, reject) => {
+            db.query("SELECT title, complete, position, questId FROM tasks WHERE questId = ? ORDER BY position ASC", [questId], (error, results, fields) => {
+                if(error) { reject(new Error(`DB Error ${error.errno}: ${error.message}`)); return }
+                resolve(results.map(result => {
+                    return {
+                        title: result['title'],
+                        complete: result['complete'],
+                        position: result['position'],
+                        questId: result['questId']
+                    }
+                }))
+            })
+        })
+    },
+
+    //Create task
+    createTask: (title, position, questId) => {
+        return new Promise((resolve, reject) => {
+            db.query("INSERT INTO tasks (title, position, questId) VALUES (?, ?, ?)", [title, position, questId], (error, results, fields) => {
+                if(error) { reject(new Error(`DB Error ${error.errno}: ${error.message}`)); return }
+                resolve({
+                    title,
+                    position,
+                    complete: false,
+                    questId
                 })
             })
         })

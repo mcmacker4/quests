@@ -1,18 +1,20 @@
 const express = require('express')
 const morgan = require('morgan')
+const bodyParser = require('body-parser')
 const { db } = require('./store')
 
 const app = express()
 
 //Logging middleware
 app.use('/', morgan('tiny'))
+app.use('/', bodyParser.json())
 
 //Routes
 app.use('/quest', require('./quest'))
 
 //Error handling
 app.use('/', (err, req, res, next) => {
-    console.error(err)
+    console.error(err.stack)
     res.status(err.errno || 500)
     res.json({ error: err.message })
     res.end()
@@ -22,6 +24,6 @@ app.use('/', (err, req, res, next) => {
 db.connect(err => {
     if(err) throw new Error(`DB Error (${err.errno}): ${err.message}`)
     console.log("DB Connected.")
-    //Start listening
+    //Start http server
     app.listen(8080, () => console.log("HTTP Server listening."))
 })
