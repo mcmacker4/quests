@@ -5,12 +5,12 @@ const { db } = require('./store')
 
 const app = express()
 
-//Logging middleware
+//Middleware
 app.use('/', morgan('tiny'))
 app.use('/', bodyParser.json())
 
 //Routes
-app.use('/quest', require('./quest'))
+app.use('/api/quest', require('./quest'))
 
 //Error handling
 app.use('/', (err, req, res, next) => {

@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "allowSyntheticDefaultImports": true,
+        "jsx": "preserve",
+        "target": "es6",
+        "module": "es6",
+        "sourceMap": true,
+        "noImplicitAny": true
+    },
+    "include": [
+        "src/**/*.tsx",
+        "src/**/*.ts",
+    ]
+}

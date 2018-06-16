@@ -1,0 +1,32 @@
+@import './palette.less';
+
+* {
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: @color1;
+}
+
+@import './header';
+
+.wrap {
+
+    max-width: 1300px;
+    margin: auto;
+
+    margin-top: @header-height + 10px;
+
+    .container {
+        box-shadow: @shadow1;
+        border-radius: 5px;
+        background-color: @color0;
+    }
+
+    @import './content/sidebar';
+    @import './content/content';
+
+}

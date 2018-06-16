@@ -1,0 +1,59 @@
+
+
+.sidebar {
+    float: left;
+    width: 390px;
+
+    padding: 20px;
+
+    h2 {
+        margin: 0;
+    }
+
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        li {
+            margin: 4px 0;
+
+            label {
+                font-size: 14pt;
+            }
+
+            input[type="text"], textarea {
+
+                height: 30px;
+
+                border: 1px solid lightgray;
+                border-radius: 5px;
+                padding: 5px;
+
+                width: 100%;
+                outline: none;
+            }
+
+            textarea {
+                resize: vertical;
+
+                min-height: 100px;
+            }
+
+            input[type="submit"] {
+
+                border: 1px solid @color4;
+                border-radius: 10px;
+                background-color: white;
+
+                cursor: pointer;
+                padding: 5px 15px;
+
+                font-size: 14pt;
+
+            }
+
+        }
+    }
+
+}
