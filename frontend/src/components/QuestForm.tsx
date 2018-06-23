@@ -40,15 +40,30 @@ export class QuestForm extends Component<QuestFormProps, QuestFormState> {
         event.preventDefault()
     }
 
+    isIllegalTitle() {
+        let len = this.state.title.length
+        return  len === 0 || len > 50
+    }
+
+    isIllegalDescription() {
+        return this.state.description.length > 240
+    }
+
+    isIllegalQuest() {
+        return this.isIllegalTitle() || this.isIllegalDescription()
+    }
+
     render() {
         return (
             <form action="#" onSubmit={this.onSubmit}>
                 <ul>
                     <li><label>Title:</label></li>
                     <li><input type="text" name="title" placeholder="Title" value={this.state.title} onChange={e => this.onTitleChange(e.target.value)} /></li>
+                    <li className={"counter" + (this.isIllegalTitle() ? " illegal" : "")}><p>{this.state.title.length}/50</p></li>
                     <li><label>Description:</label></li>
                     <li><textarea name="description" placeholder="Description" value={this.state.description} onChange={e => this.onDescriptionChange(e.target.value)}></textarea></li>
-                    <li><input type="submit" name="Submit" /></li>
+                    <li className={"counter" + (this.isIllegalDescription() ? " illegal" : "")}><p>{this.state.description.length}/240</p></li>
+                    <li><input type="submit" name="Submit" value="Add Quest" disabled={this.isIllegalQuest()} /></li>
                 </ul>
             </form>
         )

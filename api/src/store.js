@@ -10,7 +10,7 @@ const questEntity = new schema.Entity('quest', {
     tasks: [taskEntity]
 })
 
-function mergeJoinResults(results) {
+function mergeJoinResults(results, keepArray = false) {
 
     const quests = {}
                     
@@ -35,7 +35,7 @@ function mergeJoinResults(results) {
     })
 
     const questArray = Object.keys(quests).map(id => quests[id]);
-    if(questArray.length == 1)
+    if(questArray.length === 1 && !keepArray)
         return questArray[0]
     return questArray;
 
@@ -52,7 +52,7 @@ module.exports = {
                 },
                 (error, results, fields) => {
                     if(error) { reject(new Error(`DB Error ${error.errno}: ${error.message}`)); return }
-                    resolve(mergeJoinResults(results))
+                    resolve(mergeJoinResults(results, true))
                 }
             )
         })

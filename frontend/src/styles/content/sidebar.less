@@ -22,6 +22,17 @@
                 font-size: 14pt;
             }
 
+            &.counter {
+                p {
+                    font-size: 10pt;
+                    text-align: right;
+                    color: lightgray;
+                }
+                &.illegal p {
+                    color: red;
+                }
+            }
+
             input[type="text"], textarea {
 
                 height: 30px;
@@ -32,6 +43,8 @@
 
                 width: 100%;
                 outline: none;
+
+                max-height: 300px;
             }
 
             textarea {
@@ -42,12 +55,12 @@
 
             input[type="submit"] {
 
-                border: 1px solid @color4;
+                /*border: 1px solid @color4;
                 border-radius: 10px;
                 background-color: white;
 
                 cursor: pointer;
-                padding: 5px 15px;
+                padding: 5px 15px;*/
 
                 font-size: 14pt;
 
